@@ -126,11 +126,14 @@ public class AgendaTeste01 {
     }
 
     public static boolean validarNumero(String numero) {
-        return numero.matches("[0-9]+");
+        return numero.matches("\\d{8,11}");
     }
 
     public static boolean validarNome(String nome){
-        return nome.matches("[a-zA-Z]+");
+        if (nome == null) return false;
+
+        nome = nome.trim();
+        return nome.matches("[\\p{L}]+(\\s[\\p{L}]+)*");
     }
 
     public static void showMenu() {
