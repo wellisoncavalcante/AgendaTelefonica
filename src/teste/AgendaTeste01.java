@@ -35,9 +35,7 @@ public class AgendaTeste01 {
                     excluirContato(agenda, scanner);
                     break;
                 default:
-                    separadorLinha();
-                    System.out.println("Opção inválida");
-                    separadorLinha();
+                    mostrarMensagem("Opção inválida");
             }
         }
     }
@@ -53,27 +51,21 @@ public class AgendaTeste01 {
         String email = scanner.nextLine();
 
         if (!validarEmail(email)) {
-            separadorLinha();
-            System.out.println("Email inválido! Contato não adicionado.");
-            separadorLinha();
+            mostrarMensagem("Email inválido! Contato não adicionado.");
             return;
         }
 
         Contato contato = new Contato(nome, numero, email);
         agenda.add(contato);
 
-        separadorLinha();
-        System.out.println("Contato adicionado com sucesso!");
-        separadorLinha();
+        mostrarMensagem("Contato adicionado com sucesso!");
 
     }
 
     public static void listarContatos(List<Contato> agenda) {
         for (int i = 0; i < agenda.size(); i++) {
-            separadorLinha();
-            System.out.println("Contato: " + (1 + i));
+            mostrarMensagem("Contato: " + (1 + i));
             System.out.println(agenda.get(i).toString());
-            separadorLinha();
         }
     }
 
@@ -85,18 +77,14 @@ public class AgendaTeste01 {
 
         for (int i = 0; i < agenda.size(); i++) {
             if (procurar.equals(agenda.get(i).getNome())) {
-                separadorLinha();
-                System.out.println("Contato encontrado com sucesso! ");
+                mostrarMensagem("Contato encontrado com sucesso! ");
                 System.out.println(agenda.get(i).toString());
-                separadorLinha();
                 contatoEncontrado = true;
                 break;
             }
         }
         if (!contatoEncontrado) {
-            separadorLinha();
-            System.out.println("Contato não encontrado");
-            separadorLinha();
+            mostrarMensagem("Contato não encontrado");
         }
     }
 
@@ -109,17 +97,13 @@ public class AgendaTeste01 {
         for (int i = 0; i < agenda.size(); i++) {
             if (procurar.equals(agenda.get(i).getNome())) {
                 agenda.remove(i);
-                separadorLinha();
-                System.out.println("Contato excluido com sucesso!");
-                separadorLinha();
+                mostrarMensagem("Contato excluido com sucesso!");
                 contatoEncontrado = true;
                 break;
             }
         }
         if (!contatoEncontrado) {
-            separadorLinha();
-            System.out.println("Contato não encontrado");
-            separadorLinha();
+            mostrarMensagem("Contato não encontrado");
         }
     }
 
@@ -141,5 +125,11 @@ public class AgendaTeste01 {
 
     public static void separadorLinha() {
         System.out.println("=========================================================================");
+    }
+
+    public static void mostrarMensagem(String mensagem) {
+        separadorLinha();
+        System.out.println(mensagem);
+        separadorLinha();
     }
 }
