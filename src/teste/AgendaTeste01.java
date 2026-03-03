@@ -51,6 +51,10 @@ public class AgendaTeste01 {
 
         System.out.println("Digite o numero do contato: ");
         String numero = scanner.nextLine();
+        if (!validarNumero(numero)) {
+            mostrarMensagem("Número inválido! Voltando ao menu...");
+            return;
+        }
 
         System.out.println("Digite o e-mail do contato: ");
         String email = scanner.nextLine();
@@ -116,6 +120,10 @@ public class AgendaTeste01 {
 
     public static boolean validarEmail(String email) {
         return EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    public static boolean validarNumero(String numero) {
+        return numero.matches("[0-9]+");
     }
 
     public static void showMenu() {
