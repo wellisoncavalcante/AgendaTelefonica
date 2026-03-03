@@ -48,7 +48,10 @@ public class AgendaTeste01 {
     public static void adicionarContato(List<Contato> agenda, Scanner scanner) {
         System.out.println("Digite o nome do contato: ");
         String nome = scanner.nextLine();
-
+        if(!validarNome(nome)){
+            mostrarMensagem("Nome inválido! Voltando ao menu...");
+            return;
+        }
         System.out.println("Digite o numero do contato: ");
         String numero = scanner.nextLine();
         if (!validarNumero(numero)) {
@@ -124,6 +127,10 @@ public class AgendaTeste01 {
 
     public static boolean validarNumero(String numero) {
         return numero.matches("[0-9]+");
+    }
+
+    public static boolean validarNome(String nome){
+        return nome.matches("[a-zA-Z]+");
     }
 
     public static void showMenu() {
