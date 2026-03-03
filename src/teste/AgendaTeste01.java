@@ -17,10 +17,16 @@ public class AgendaTeste01 {
 
         while (true) {
             showMenu();
+            if (!scanner.hasNextInt()) {
+                mostrarMensagem("Digite apenas números");
+                scanner.nextLine();
+                continue;
+            }
             int opcao = scanner.nextInt();
             scanner.nextLine();
             switch (opcao) {
                 case 0:
+                    scanner.close();
                     return;
                 case 1:
                     adicionarContato(agenda, scanner);
@@ -107,11 +113,10 @@ public class AgendaTeste01 {
         }
     }
 
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+
     public static boolean validarEmail(String email) {
-        String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        Pattern pattern = Pattern.compile(regexEmail);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 
     public static void showMenu() {
