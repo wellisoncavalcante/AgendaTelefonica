@@ -5,6 +5,8 @@ import dominio.Contato;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AgendaTeste01 {
     public static void main(String[] args) {
@@ -40,7 +42,7 @@ public class AgendaTeste01 {
         }
     }
 
-    public static void adicionarContato(List<Contato> agenda, Scanner scanner){
+    public static void adicionarContato(List<Contato> agenda, Scanner scanner) {
         System.out.println("Digite o nome do contato: ");
         String nome = scanner.nextLine();
 
@@ -49,6 +51,13 @@ public class AgendaTeste01 {
 
         System.out.println("Digite o e-mail do contato: ");
         String email = scanner.nextLine();
+
+        if (!validarEmail(email)) {
+            separadorLinha();
+            System.out.println("Email inválido! Contato não adicionado.");
+            separadorLinha();
+            return;
+        }
 
         Contato contato = new Contato(nome, numero, email);
         agenda.add(contato);
@@ -59,23 +68,23 @@ public class AgendaTeste01 {
 
     }
 
-    public static void listarContatos(List<Contato> agenda){
+    public static void listarContatos(List<Contato> agenda) {
         for (int i = 0; i < agenda.size(); i++) {
             separadorLinha();
-            System.out.println("Contato: "+(1+i));
+            System.out.println("Contato: " + (1 + i));
             System.out.println(agenda.get(i).toString());
             separadorLinha();
         }
     }
 
-    public static void procurarContato(List<Contato> agenda, Scanner scanner){
+    public static void procurarContato(List<Contato> agenda, Scanner scanner) {
         System.out.println("Informe o nome do contato: ");
         String procurar = scanner.nextLine();
 
         boolean contatoEncontrado = false;
 
-        for (int i = 0; i < agenda.size() ; i++){
-            if (procurar.equals(agenda.get(i).getNome())){
+        for (int i = 0; i < agenda.size(); i++) {
+            if (procurar.equals(agenda.get(i).getNome())) {
                 separadorLinha();
                 System.out.println("Contato encontrado com sucesso! ");
                 System.out.println(agenda.get(i).toString());
@@ -84,21 +93,21 @@ public class AgendaTeste01 {
                 break;
             }
         }
-        if (!contatoEncontrado){
+        if (!contatoEncontrado) {
             separadorLinha();
             System.out.println("Contato não encontrado");
             separadorLinha();
         }
     }
 
-    public static void excluirContato(List<Contato> agenda, Scanner scanner){
+    public static void excluirContato(List<Contato> agenda, Scanner scanner) {
         System.out.println("Informe o nome do contato que deseja excluir: ");
         String procurar = scanner.nextLine();
 
         boolean contatoEncontrado = false;
 
-        for (int i = 0; i < agenda.size() ; i++){
-            if (procurar.equals(agenda.get(i).getNome())){
+        for (int i = 0; i < agenda.size(); i++) {
+            if (procurar.equals(agenda.get(i).getNome())) {
                 agenda.remove(i);
                 separadorLinha();
                 System.out.println("Contato excluido com sucesso!");
@@ -107,11 +116,18 @@ public class AgendaTeste01 {
                 break;
             }
         }
-        if (!contatoEncontrado){
+        if (!contatoEncontrado) {
             separadorLinha();
             System.out.println("Contato não encontrado");
             separadorLinha();
         }
+    }
+
+    public static boolean validarEmail(String email) {
+        String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regexEmail);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     public static void showMenu() {
@@ -123,7 +139,7 @@ public class AgendaTeste01 {
         System.out.println("(0) - Sair");
     }
 
-    public static void separadorLinha(){
+    public static void separadorLinha() {
         System.out.println("=========================================================================");
     }
 }
