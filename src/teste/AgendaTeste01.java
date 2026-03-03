@@ -58,12 +58,21 @@ public class AgendaTeste01 {
             mostrarMensagem("Número inválido! Voltando ao menu...");
             return;
         }
+        if (numeroRepetido(agenda, numero)) {
+            mostrarMensagem("Esse número já está cadastrado!");
+            return;
+        }
 
         System.out.println("Digite o e-mail do contato: ");
         String email = scanner.nextLine();
 
         if (!validarEmail(email)) {
             mostrarMensagem("Email inválido! Contato não adicionado.");
+            return;
+        }
+
+        if (emailRepetido(agenda, email)) {
+            mostrarMensagem("Esse e-mail já está cadastrado!");
             return;
         }
 
@@ -134,6 +143,24 @@ public class AgendaTeste01 {
 
         nome = nome.trim();
         return nome.matches("[\\p{L}]+(\\s[\\p{L}]+)*");
+    }
+
+    public static boolean numeroRepetido(List<Contato> agenda, String numero){
+        for (Contato contato : agenda){
+            if (contato.getNumero().equals(numero)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean emailRepetido(List<Contato> agenda, String email){
+        for (Contato contato : agenda){
+            if (contato.getEmail().equalsIgnoreCase(email)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void showMenu() {
